@@ -17,6 +17,10 @@ const NavItems = [
     link: "/",
   },
   {
+    title: "ブログ",
+    link: "/beer-blog",
+  },
+  {
     title: "注文",
     link: "/order",
   },

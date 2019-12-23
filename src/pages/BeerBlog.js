@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import AlchoolCalc from "../components/AlchoolCalc";
 
-const AlchoolCheck = () => {
+const BeerBlog = () => {
   const [listIsOpen, setListIsOpen] = useState(false);
   const [volume, setVolume] = useState(135);
   const [numOfCan, setNumOfCan] = useState(1);
@@ -72,4 +72,4 @@ const AlchoolCheck = () => {
   );
 };
 
-export default AlchoolCheck;
+export default BeerBlog;

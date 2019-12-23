@@ -8,7 +8,8 @@ import Order from "./pages/Order";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Cocktail from "./pages/Cocktail";
-import AlchoolCheck from "./pages/AlchoolCheck";
+import AlchoolCheck from "./pages/AlcoholCheck";
+import BeerBlog from "./pages/BeerBlog";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/auth" component={Auth} />
         <Route path="/cocktail" component={Cocktail} />
         <Route path="/alchool-check" exact component={AlchoolCheck} />
+        <Route path="/beer-blog" exact component={BeerBlog} />
         <Route path="/" exact component={Home} />
       </Switch>
     </Router>
