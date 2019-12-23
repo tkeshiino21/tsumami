@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import { beerData } from "../components/beerData";
+import { beerData } from "../data/beerData";
 
 const Bear = () => {
   const [selectedMaker, setSelectedMaker] = useState();

@@ -5,6 +5,10 @@ import styled from "styled-components";
 const NavList = styled.li`
   list-style: none;
   color: grey;
+  .nav-item {
+    color: #000;
+    line-height: 40px;
+  }
 `;
 
 const NavItems = [
@@ -43,8 +47,8 @@ const NavLinks = () => {
     <ul>
       {NavItems.map((item, index) => {
         return (
-          <NavList>
-            <Link key={item.index} to={item.link}>
+          <NavList key={index}>
+            <Link className="nav-item" to={item.link}>
               {item.title}
             </Link>
           </NavList>

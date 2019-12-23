@@ -17,7 +17,7 @@ const AlchoolCalc = ({ volume, numOfCan }) => {
   let AlcDuration = () => {
     //　体重や性別によって変動してくるが、
     //　目安として１ドリンクを分解するのに2時間かかる。
-    return DrinkUnit() * 2;
+    return Math.round(DrinkUnit() * 2);
   };
 
   return AlcDuration();

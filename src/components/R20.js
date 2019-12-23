@@ -1,5 +1,5 @@
 import React from "react";
-import { InlineButtons } from "./ButtonContainers";
+import { InlineButtons } from "./utility/ButtonContainers";
 import {
   ModalWrap,
   ModalContent,
@@ -13,8 +13,8 @@ const R20 = props => {
     <ModalWrap>
       <ModalOverlay>
         <ModalContent>
-          <h3>お酒はハタチになってから。</h3>
-          <p>あなたは20歳以上ですか？</p>
+          <h3 className="secondary">お酒はハタチになってから。</h3>
+          <p className="secondary">あなたは20歳以上ですか？</p>
           <InlineButtons>
             <PurpleButton onClick={props.handleClick} className="inline-button">
               はい

@@ -1,28 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { CounterButton } from "./CounterButton";
+import { CounterButton } from "./utility/CounterButton";
 
 const Counter = (props, action) => {
-  const [state, setState] = useState({
-    counter: 0,
-  });
-  switch (action) {
-    case "inc":
-      setState(prevState => {
-        return { counter: prevState++ };
-      });
-      break;
-    case "dec":
-      setState(prevState => {
-        return { counter: prevState-- };
-      });
-      break;
-    default:
-      console.log("this cannnot be reached!");
-  }
   return (
     <>
-      <div>{state.counter}</div>
       <h1>counter:{props.ctr}</h1>
       <CounterButton onClick={props.onIncrementCounter}>INC</CounterButton>
       <CounterButton onClick={props.onDecrementCounter}>DEC</CounterButton>

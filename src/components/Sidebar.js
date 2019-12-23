@@ -3,11 +3,13 @@ import styled from "styled-components";
 import NavLinks from "./NavLinks";
 
 const SidebarContainer = styled.div`
-  width: 400px;
+  width: 300px;
+  height: 100vh;
+  background-color: #cccccc;
 `;
 
 const Sidebar = () => {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState();
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const sidebarToggler = () => {
     setSidebarIsOpen(!sidebarIsOpen);
   };
@@ -17,14 +19,15 @@ const Sidebar = () => {
 
   return (
     <div>
-      <button onClick={sidebarToggler}>MENU</button>
-
-      {sidebarIsOpen === true ? (
-        <SidebarContainer>
-          <button onClick={sidebarCloseHandler}>Close</button>
-          <NavLinks />
-        </SidebarContainer>
-      ) : null}
+      <SidebarContainer>
+        <button onClick={sidebarToggler}>MENU</button>
+        {sidebarIsOpen === true ? (
+          <>
+            <button onClick={sidebarCloseHandler}>Close</button>
+            <NavLinks />
+          </>
+        ) : null}
+      </SidebarContainer>
     </div>
   );
 };

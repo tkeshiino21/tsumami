@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import { tsumamiData } from "../components/tsumamiData";
+import { tsumamiData } from "../data/tsumamiData";
 
 const Bear = () => {
   const [selectedStore, setSelectedStore] = useState();

@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
         counter: state.counter - 10,
       };
     default:
-      console.log("this cannot be reached!");
+      console.log("actions are waitting...");
   }
   return state;
 };
