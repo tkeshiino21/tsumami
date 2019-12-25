@@ -1,52 +1,51 @@
 import * as actionTypes from "./action";
 
 const initialState = {
-  beers: [],
+  beers: {
+    glass: 0,
+    regularBeerMug: 0,
+    tallBeerMug: 0,
+    shortCan: 0,
+    regularCan: 0,
+    longCan: 0,
+  },
   totalAlcohol: 0,
+};
+
+const BEERS_VOLUME = {
+  glass: 285,
+  regularBeerMug: 435,
+  tallBeerMug: 700,
+  shortCan: 250,
+  regularCan: 350,
+  longCan: 500,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "INCREMENT":
+    case actionTypes.ADD_BEER:
+      console.log(action);
       return {
         ...state,
-        counter: state.counter + 1,
+        beers: {
+          ...state.beers,
+          [action.beerName]: state.beers[action.beerName] + 1,
+        },
+        totalAlcohol: state.totalAlcohol + BEERS_VOLUME[action.beerName],
       };
-    case "DECREMENT":
+    case actionTypes.REMOVE_BEER:
+      console.log(action);
       return {
         ...state,
-        counter: state.counter - 1,
-      };
-    case "ADD":
-      return {
-        ...state,
-        counter: state.counter + 10,
-      };
-    case "SUBTRACT":
-      return {
-        ...state,
-        counter: state.counter - 10,
-      };
-    case "STORE_RESULT":
-      return {
-        ...state,
-        results: state.results.concat({
-          id: new Date(),
-          value: state.counter,
-        }),
-      };
-    case "DELETE_RESULT":
-      const updatedArray = state.results.filter(
-        result => result.id !== action.resultElId
-      );
-      return {
-        ...state,
-        results: updatedArray,
+        beers: {
+          ...state.beers,
+          [action.beerName]: state.beers[action.beerName] - 1,
+        },
+        totalAlcohol: state.totalAlcohol - BEERS_VOLUME[action.beerName],
       };
     default:
-      console.log("actions are waitting...");
+      return state;
   }
-  return state;
 };
 
 export default reducer;

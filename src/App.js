@@ -7,9 +7,8 @@ import Tsumami from "./pages/Tsumami";
 import Order from "./pages/Order";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
-import Cocktail from "./pages/Cocktail";
+import Blog from "./pages/Blog";
 import AlchoolCheck from "./pages/AlcoholCheck";
-import BeerBlog from "./pages/BeerBlog";
 
 function App() {
   return (
@@ -19,9 +18,8 @@ function App() {
         <Route path="/tsumami" component={Tsumami} />
         <Route path="/order" component={Order} />
         <Route path="/auth" component={Auth} />
-        <Route path="/cocktail" component={Cocktail} />
-        <Route path="/alchool-check" exact component={AlchoolCheck} />
-        <Route path="/beer-blog" exact component={BeerBlog} />
+        <Route path="/alchool-check" component={AlchoolCheck} />
+        <Route path="/beer-blog" component={Blog} />
         <Route path="/" exact component={Home} />
       </Switch>
     </Router>

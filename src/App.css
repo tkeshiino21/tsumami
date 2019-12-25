@@ -12,7 +12,7 @@ a {
   color: #fff
 }
 
-h1, h2, h3, h4, h5,p {
+h1, h2, h3, h4, h5,p,small {
   color: #fff
 }
 
@@ -20,8 +20,18 @@ h1, h2, h3, h4, h5,p {
   color: #fff;
 }
 
+span {
+  font-weight: bolder;
+  font-size:1.5em;
+}
+
+small {
+  font-size:0.7em;
+}
+
 p {
   margin: 0px;
+  font-size:14px;
 }
 
 .secondary {
