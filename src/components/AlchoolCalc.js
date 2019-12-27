@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 // export const AlcCalc = ({ volume }) => {
 //   const PureAlcWeight = () => {
 //     // ５度が一般的なビールのアルコール度数
@@ -22,12 +20,6 @@ import { useMemo } from "react";
 //   //　１ドリンクを分解するのに2時間かかる。
 //   return Math.round(props() * 2);
 // };
-
-const test = ({ props = 12 }) => {
-  const double = props * 2;
-  const doubleDouble = double * 2;
-  return test;
-};
 
 const dangerJudge = props => {
   if (props > 20) {

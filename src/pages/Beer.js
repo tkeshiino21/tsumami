@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { beerData } from "../data/beerData";
+import { connect } from "react-redux";
+import * as actionTypes from "../store/action";
 
-const Bear = () => {
+const Beer = props => {
   const [selectedMaker, setSelectedMaker] = useState();
-  const [selectedBeer, setSelectedBeer] = useState([
-    {
-      name: "",
-      value: "",
-    },
-  ]);
   const options = [
+    {
+      name: "選択してください",
+      value: "default",
+    },
     {
       name: "SUNTORY",
       value: "suntory",
@@ -50,23 +50,40 @@ const Bear = () => {
           .filter(beer => beer.maker === selectedMaker)
           .map((beer, index) => {
             return (
-              <li key={index} value={beer.value}>
+              <li key={index}>
                 {beer.name}
-                <button index={index} onClick={() => setSelectedBeer(beer)}>
+                <button
+                  index={index}
+                  onClick={() => props.onSelectBeer(beer.name)}>
                   choise
                 </button>
               </li>
             );
           })}
       </div>
-      <p>
-        yourchoise:
-        <strong>{selectedMaker}</strong>
+      <hr />
+      <div>
+        <p>yourchoise: </p>
         <br />
-        <strong>{selectedBeer.name}</strong>
-      </p>
+        {props.beer.map((item, index) => {
+          return <li key={index}>{item}</li>;
+        })}
+      </div>
     </Layout>
   );
 };
 
-export default Bear;
+const mapStateToProps = state => {
+  return {
+    beer: state.items,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSelectBeer: beer =>
+      dispatch({ type: actionTypes.SELECT_BEER, item: beer }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Beer);

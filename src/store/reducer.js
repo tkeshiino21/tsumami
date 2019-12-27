@@ -1,6 +1,7 @@
 import * as actionTypes from "./action";
 
 const initialState = {
+  items: [],
   beers: {
     glass: 0,
     regularBeerMug: 0,
@@ -11,6 +12,8 @@ const initialState = {
   },
   totalAlcohol: 0,
 };
+
+const items = [];
 
 const BEERS_VOLUME = {
   glass: 285,
@@ -42,6 +45,18 @@ const reducer = (state = initialState, action) => {
           [action.beerName]: state.beers[action.beerName] - 1,
         },
         totalAlcohol: state.totalAlcohol - BEERS_VOLUME[action.beerName],
+      };
+    case actionTypes.SELECT_TSUMAMI:
+      console.log(action);
+      return {
+        ...state,
+        items: [...state.items, action.item],
+      };
+    case actionTypes.SELECT_BEER:
+      console.log(action);
+      return {
+        ...state,
+        items: [...state.items, action.item],
       };
     default:
       return state;

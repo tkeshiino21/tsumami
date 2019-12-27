@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Layout from "../components/Layout";
 import client from "../Contentful";
 import Loading from "../components/Loading";
@@ -11,11 +10,10 @@ const Blog = () => {
     publishBlog: [],
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
   useEffect(() => {
     client.getEntries({ content_type: "post" }).then(entries => {
       // log the title for all the entries that have it
-      console.log("useEffect");
+      console.log([...entries.items].find(item => item.fields.slug === "test"));
       let blog = formatData(entries.items);
       let publishBlog = blog.filter(blog => blog.publish === true);
       setPosts({
@@ -34,7 +32,6 @@ const Blog = () => {
       return blog;
     });
     return tempItems;
-    // };
   };
   if (isLoading === true) {
     return (
@@ -49,7 +46,11 @@ const Blog = () => {
       {console.log(posts)}
 
       {posts.blog.map(item => {
-        return <li>{item.title}</li>;
+        return (
+          <li>
+            <Link to={`/${item.slug}`}>{item.title}</Link>
+          </li>
+        );
       })}
     </Layout>
   );

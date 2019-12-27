@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import beer from "../../images/beer.jpg";
-import React from "react";
 
 const ImgContainer = styled.img`
   width: 500px;

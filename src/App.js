@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import AlchoolCheck from "./pages/AlcoholCheck";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route path="/order" component={Order} />
         <Route path="/auth" component={Auth} />
         <Route path="/alchool-check" component={AlchoolCheck} />
-        <Route path="/beer-blog" component={Blog} />
+        <Route path="/beer-blog" exact component={Blog} />
+        <Route path="/:slug" component={SinglePost} />
         <Route path="/" exact component={Home} />
       </Switch>
     </Router>
