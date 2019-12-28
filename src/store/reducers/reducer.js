@@ -1,7 +1,7 @@
-import * as actionTypes from "./action";
+import * as actionTypes from "../actions/actionTypes";
 
-const initialState = {
-  items: [],
+const initState = {
+  items: [1, 2, 3],
   beers: {
     glass: 0,
     regularBeerMug: 0,
@@ -11,7 +11,7 @@ const initialState = {
     longCan: 0,
   },
   totalAlcohol: 0,
-  age: false,
+  age: true, // devMode=age:true, publicMode=age:false
 };
 
 const BEERS_VOLUME = {
@@ -23,7 +23,7 @@ const BEERS_VOLUME = {
   longCan: 500,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_AGE:
       console.log(action);

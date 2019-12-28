@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import Layout from "../components/Layout";
 import { beerData } from "../data/beerData";
-import { connect } from "react-redux";
-import * as actionTypes from "../store/action";
+import { useSelector, useDispatch } from "react-redux";
+import { selectBeer } from "../store/actions/index";
 
-const Beer = props => {
+const Beer = () => {
   const [selectedMaker, setSelectedMaker] = useState();
+  const beer = useSelector(state => state.reducer.items);
+  const age = useSelector(state => state.reducer.age);
+  const dispatch = useDispatch();
   const options = [
     {
       name: "選択してください",
@@ -29,7 +32,7 @@ const Beer = props => {
       value: "others",
     },
   ];
-  if (props.age === false) {
+  if (age === false) {
     return <Redirect to={"./"} />;
   }
   return (
@@ -58,7 +61,7 @@ const Beer = props => {
                 {beer.name}
                 <button
                   index={index}
-                  onClick={() => props.onSelectBeer(beer.name)}>
+                  onClick={() => dispatch(selectBeer(beer.name))}>
                   choise
                 </button>
               </li>
@@ -71,26 +74,13 @@ const Beer = props => {
       <div>
         <p>yourchoise: </p>
         <br />
-        {props.beer.map((item, index) => {
+        {beer.map((item, index) => {
           return <li key={index}>{item}</li>;
         })}
+        {console.log(beer)}
       </div>
     </Layout>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    age: state.age,
-    beer: state.items,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onSelectBeer: beer =>
-      dispatch({ type: actionTypes.SELECT_BEER, item: beer }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Beer);
+export default Beer;

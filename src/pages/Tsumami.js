@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { tsumamiData } from "../data/tsumamiData";
-import { connect } from "react-redux";
-import * as actionTypes from "../store/action";
+import { useSelector, useDispatch } from "react-redux";
+import { selectBeer } from "../store/actions";
+import { Redirect } from "react-router-dom";
 
-const Tsumami = props => {
-  const [selectedStore, setSelectedStore] = useState();
+const Tsumami = () => {
+  const tsumami = useSelector(stat => stat.reducer.items);
+  const age = useSelector(state => state.reducer.age);
+  const dispatch = useDispatch();
+  const [selectedStore, setSelectedStore] = useState("default");
   const options = [
     {
       name: "選択してください",
@@ -24,6 +28,9 @@ const Tsumami = props => {
       value: "all",
     },
   ];
+  if (age === false) {
+    return <Redirect to={"./"} />;
+  }
   return (
     <Layout>
       <form action="samplel.cgi" method="post">
@@ -32,10 +39,10 @@ const Tsumami = props => {
           name="maker"
           value={selectedStore}
           onChange={e => setSelectedStore(e.target.value)}>
-          {options.map((tsumami, index) => {
+          {options.map((store, index) => {
             return (
-              <option key={index} value={tsumami.value}>
-                {tsumami.name}
+              <option key={index} value={store.value}>
+                {store.name}
               </option>
             );
           })}
@@ -44,13 +51,13 @@ const Tsumami = props => {
       <div>
         {tsumamiData
           .filter(tsumami => tsumami.store === selectedStore)
-          .map((tsumami, index) => {
+          .map((tsumamiData, index) => {
             return (
               <li key={index}>
-                {tsumami.name}
+                {tsumamiData.name}
                 <button
                   index={index}
-                  onClick={() => props.onSelectTsumami(tsumami.name)}>
+                  onClick={() => dispatch(selectBeer(tsumamiData.name))}>
                   choise
                 </button>
               </li>
@@ -63,25 +70,13 @@ const Tsumami = props => {
       <div>
         <p>yourchoise:</p>
         <br />
-        {props.tsumami.map((item, index) => {
+        {/* {tsumami.map((item, index) => {
           return <li key={index}>{item}</li>;
-        })}
+        })} */}
+        {console.log(tsumami)}
       </div>
     </Layout>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    tsumami: state.items,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onSelectTsumami: tsumami =>
-      dispatch({ type: actionTypes.SELECT_TSUMAMI, item: tsumami }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tsumami);
+export default Tsumami;

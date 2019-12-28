@@ -7,10 +7,14 @@ import { InlineButtons } from "../components/utility/ButtonContainers";
 import { CentralizeWrapper } from "../components/utility/Container";
 import R20 from "../components/R20";
 import { connect } from "react-redux";
-import * as actionTypes from "../store/action";
+import * as actionTypes from "../store/actions/actionTypes";
 
 const Home = props => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
+  const handleClick = () => {
+    setModalIsOpen(!modalIsOpen);
+    props.onCheckAge();
+  };
   return (
     <Layout>
       <CentralizeWrapper>
@@ -23,11 +27,7 @@ const Home = props => {
             <button className="inline-button">ツマミから選ぶ</button>
           </Link>
         </InlineButtons>
-        {modalIsOpen ? (
-          <R20
-            handleYes={() => (setModalIsOpen(!modalIsOpen), props.onCheckAge())}
-          />
-        ) : null}
+        {modalIsOpen ? <R20 handleYes={handleClick} /> : null}
       </CentralizeWrapper>
     </Layout>
   );

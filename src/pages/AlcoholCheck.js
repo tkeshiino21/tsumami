@@ -10,7 +10,7 @@ import Bubbles, {
 } from "../components/utility/BeerBackground";
 import { InlineContainer } from "../components/utility/Container";
 import styled from "styled-components";
-import * as actionTypes from "../store/action";
+import * as actionTypes from "../store/actions/actionTypes";
 import dangerJudge from "../components/AlchoolCalc";
 
 const Float = styled.div`
