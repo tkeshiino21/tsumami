@@ -45,9 +45,9 @@ const Blog = () => {
       <h1>Beer Blog</h1>
       {console.log(posts)}
 
-      {posts.blog.map(item => {
+      {posts.blog.map((item, index) => {
         return (
-          <li>
+          <li key={index}>
             <Link to={`/${item.slug}`}>{item.title}</Link>
           </li>
         );

@@ -16,7 +16,7 @@ const R20 = props => {
           <h3 className="secondary">お酒はハタチになってから。</h3>
           <p className="secondary">あなたは20歳以上ですか？</p>
           <InlineButtons>
-            <PurpleButton onClick={props.handleClick} className="inline-button">
+            <PurpleButton onClick={props.handleYes} className="inline-button">
               はい
             </PurpleButton>
             <CancelButton

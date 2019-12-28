@@ -11,9 +11,8 @@ const initialState = {
     longCan: 0,
   },
   totalAlcohol: 0,
+  age: false,
 };
-
-const items = [];
 
 const BEERS_VOLUME = {
   glass: 285,
@@ -26,6 +25,12 @@ const BEERS_VOLUME = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.CHECK_AGE:
+      console.log(action);
+      return {
+        ...state,
+        age: true,
+      };
     case actionTypes.ADD_BEER:
       console.log(action);
       return {

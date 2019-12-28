@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import Layout from "../components/Layout";
 import { beerData } from "../data/beerData";
 import { connect } from "react-redux";
@@ -28,6 +29,9 @@ const Beer = props => {
       value: "others",
     },
   ];
+  if (props.age === false) {
+    return <Redirect to={"./"} />;
+  }
   return (
     <Layout>
       <form action="samplel.cgi" method="post">
@@ -61,7 +65,9 @@ const Beer = props => {
             );
           })}
       </div>
+      <br />
       <hr />
+      <br />
       <div>
         <p>yourchoise: </p>
         <br />
@@ -75,6 +81,7 @@ const Beer = props => {
 
 const mapStateToProps = state => {
   return {
+    age: state.age,
     beer: state.items,
   };
 };
