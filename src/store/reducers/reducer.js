@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
-  items: [1, 2, 3],
+  items: [],
   beers: {
     glass: 0,
     regularBeerMug: 0,

@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import { RandomMessage } from "./RandomMessage";
+import Header from "./Header";
 
 const Backgroud = styled.div`
   background-image: linear-gradient(to right, #434343 0%, black 100%);
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
 `;
 
 const Title = styled.h1`
@@ -20,6 +21,12 @@ const Title = styled.h1`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+const FlexColumnContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 `;
 
 const MainContents = styled.div`
@@ -38,12 +45,14 @@ const Layout = props => {
     <Backgroud>
       <MainContainer>
         <Sidebar />
-
-        <MainContents>
-          <Title>TSUMAMI</Title>
-          <RandomMessage />
-          <PageContainer>{props.children}</PageContainer>
-        </MainContents>
+        <FlexColumnContainer>
+          <Header />
+          <MainContents>
+            <Title>TSUMAMI</Title>
+            <RandomMessage />
+            <PageContainer>{props.children}</PageContainer>
+          </MainContents>
+        </FlexColumnContainer>
       </MainContainer>
     </Backgroud>
   );

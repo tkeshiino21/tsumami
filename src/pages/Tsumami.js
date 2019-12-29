@@ -70,9 +70,9 @@ const Tsumami = () => {
       <div>
         <p>yourchoise:</p>
         <br />
-        {/* {tsumami.map((item, index) => {
+        {tsumami.map((item, index) => {
           return <li key={index}>{item}</li>;
-        })} */}
+        })}
         {console.log(tsumami)}
       </div>
     </Layout>

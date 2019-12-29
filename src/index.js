@@ -9,7 +9,7 @@ import "firebase/firestore";
 import "firebase/functions";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
-import store from "./store/setupStore";
+import configureStore from "./store/configureStore";
 
 const fbConfig = {
   apiKey: "AIzaSyBjpRO3PE342J_0VhwYWIU7FWuMJVMwT7M",
@@ -29,6 +29,8 @@ const rrfConfig = {
 
 firebase.initializeApp(fbConfig);
 firebase.firestore();
+
+const store = configureStore();
 
 const rrfProps = {
   firebase,

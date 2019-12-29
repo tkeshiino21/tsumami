@@ -6,11 +6,13 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 const SinglePost = () => {
   const [posts] = useState();
+  const [blog, setBlog] = useState();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     client.getEntries({ content_type: "post" }).then(entries => {
-      console.log("useEffect");
-      let blog = [...entries.items].find(
+      console.log([...entries.items]);
+      console.log([...entries.items].find(item => item.fields.slug));
+      const blog = [...entries.items].find(
         item => "/" + item.fields.slug === window.location.pathname
       );
       const renderedHTML = documentToHtmlString(blog.fields.content);

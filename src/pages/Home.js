@@ -10,7 +10,8 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions/actionTypes";
 
 const Home = props => {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  // divelopment mode:false, public mode: true
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleClick = () => {
     setModalIsOpen(!modalIsOpen);
     props.onCheckAge();

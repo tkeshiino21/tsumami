@@ -10,6 +10,9 @@ import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import AlchoolCheck from "./pages/AlcoholCheck";
 import SinglePost from "./pages/SinglePost";
+import LogIn from "./pages/LogIn";
+import SignUp from "./pages/SignUp";
+import LogOut from "./pages/LogOut";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
         <Route path="/alchool-check" component={AlchoolCheck} />
         <Route path="/beer-blog" exact component={Blog} />
         <Route path="/:slug" component={SinglePost} />
+        <Route path="/login" component={LogIn} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/logout" component={LogOut} />
         <Route path="/" exact component={Home} />
       </Switch>
     </Router>
