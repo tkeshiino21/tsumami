@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Layout from "../components/Layout";
 import { tsumamiData } from "../data/tsumamiData";
 import { useSelector, useDispatch } from "react-redux";
 import { selectBeer } from "../store/actions";
 import { Redirect } from "react-router-dom";
 
+const FixedBottom = styled.div`
+  position: absolute;
+  bottom: 50px;
+`;
+
 const Tsumami = () => {
-  const tsumami = useSelector(stat => stat.reducer.items);
-  const age = useSelector(state => state.reducer.age);
+  const tsumami = useSelector(stat => stat.alc.items);
+  const age = useSelector(state => state.alc.age);
   const dispatch = useDispatch();
   const [selectedStore, setSelectedStore] = useState("default");
   const options = [
@@ -64,17 +70,14 @@ const Tsumami = () => {
             );
           })}
       </div>
-      <br />
-      <hr />
-      <br />
-      <div>
+      <FixedBottom>
         <p>yourchoise:</p>
         <br />
         {tsumami.map((item, index) => {
           return <li key={index}>{item}</li>;
         })}
         {console.log(tsumami)}
-      </div>
+      </FixedBottom>
     </Layout>
   );
 };

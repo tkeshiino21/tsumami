@@ -1,7 +1,6 @@
-//
 import React, { useMemo } from "react";
 import Layout from "../components/Layout";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CounterButton } from "../components/utility/CounterButton";
 import Bubbles, {
   BeerBackground,
@@ -10,8 +9,8 @@ import Bubbles, {
 } from "../components/utility/BeerBackground";
 import { InlineContainer } from "../components/utility/Container";
 import styled from "styled-components";
-import * as actionTypes from "../store/actions/actionTypes";
 import dangerJudge from "../components/AlchoolCalc";
+import { addBeer, removeBeer } from "../store/actions/index";
 
 const Float = styled.div`
   position: relative;
@@ -19,7 +18,7 @@ const Float = styled.div`
 `;
 
 const Emoji = styled.h1`
-  position: absolute;
+  position: fixed;
   font-size: 128px;
   top: -50px;
   right: 10px;
@@ -28,7 +27,10 @@ const Emoji = styled.h1`
 `;
 
 const Auth = props => {
-  const pureAlcWeight = Math.floor(props.totalAlc * 0.05 * 0.8);
+  const totalAlc = useSelector(state => state.alc.totalAlcohol);
+  const beers = useSelector(state => state.alc.beers);
+  const dispatch = useDispatch();
+  const pureAlcWeight = Math.floor(totalAlc * 0.05 * 0.8);
   const drinkUnit = pureAlcWeight / 10;
   const alcDuration = drinkUnit * 2;
   const data = useMemo(
@@ -76,15 +78,13 @@ const Auth = props => {
               <p style={{ width: "100px", border: "1px solid #fff" }}>
                 {item.name}
               </p>
-              <CounterButton onClick={() => props.onRemoveBeer(item.value)}>
+              <CounterButton onClick={() => dispatch(removeBeer(item.value))}>
                 -
               </CounterButton>
-              <CounterButton onClick={() => props.onAddBeer(item.value)}>
+              <CounterButton onClick={() => dispatch(addBeer(item.value))}>
                 +
               </CounterButton>
-              <p>
-                {props.beers[item.value] > 0 ? props.beers[item.value] : null}
-              </p>
+              <p>{beers[item.value] > 0 ? beers[item.value] : null}</p>
             </InlineContainer>
           );
         })}
@@ -97,7 +97,7 @@ const Auth = props => {
         inputColor={beerColor({ level: data * 1 })}
         inputHeight={beerHeight({ level: data * 1 })}
       />
-      {props.totalAlc > 0 ? <Bubbles /> : null}
+      {totalAlc > 0 ? <Bubbles /> : null}
       <Float>
         {dangerJudge(drinkUnit).map((item, index) => {
           return (
@@ -113,7 +113,8 @@ const Auth = props => {
         })}
         <br />
         <p>
-          ビールの量：<span>{props.totalAlc}</span>ml
+          ビールの量：<span>{totalAlc}</span>ml
+          {console.log(beers)}
         </p>
         <p>
           純アルコール量：
@@ -138,19 +139,4 @@ const Auth = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    beers: state.beers,
-    totalAlc: state.totalAlcohol,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddBeer: can => dispatch({ type: actionTypes.ADD_BEER, beerName: can }),
-    onRemoveBeer: can =>
-      dispatch({ type: actionTypes.REMOVE_BEER, beerName: can }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default Auth;

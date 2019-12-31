@@ -1,26 +1,3 @@
-// export const AlcCalc = ({ volume }) => {
-//   const PureAlcWeight = () => {
-//     // ５度が一般的なビールのアルコール度数
-//     // アルコールの比重は目安として0.8％で計算する。
-//     return volume * 0.05 * 0.8;
-//   };
-//   const props = PureAlcWeight => {
-//     //　飲酒量の単位（＝ドリンク）を計算する。
-//     return PureAlcWeight / 10;
-//   };
-//   return AlcCalc;
-// };
-
-// export const props = PureAlcWeight => {
-//   //　飲酒量の単位（＝ドリンク）を計算する。
-//   return PureAlcWeight / 10;
-// };
-
-// export const AlcDuration = ({ props }) => {
-//   //　１ドリンクを分解するのに2時間かかる。
-//   return Math.round(props() * 2);
-// };
-
 const dangerJudge = props => {
   if (props > 20) {
     return [

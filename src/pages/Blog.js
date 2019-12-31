@@ -48,7 +48,7 @@ const Blog = () => {
       {posts.blog.map((item, index) => {
         return (
           <li key={index}>
-            <Link to={`/${item.slug}`}>{item.title}</Link>
+            <Link to={`beer-blog/${item.slug}`}>{item.title}</Link>
           </li>
         );
       })}

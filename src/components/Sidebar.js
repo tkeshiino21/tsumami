@@ -1,34 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import NavLinks from "./NavLinks";
 
 const SidebarContainer = styled.div`
   width: 300px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #cccccc;
+  z-index: 999;
 `;
 
-const Sidebar = () => {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
-  const sidebarToggler = () => {
-    setSidebarIsOpen(!sidebarIsOpen);
-  };
-  const sidebarCloseHandler = () => {
-    setSidebarIsOpen(false);
-  };
+const CloseButton = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
 
+const Sidebar = props => {
   return (
-    <div>
-      <SidebarContainer>
-        <button onClick={sidebarToggler}>MENU</button>
-        {sidebarIsOpen === true ? (
-          <>
-            <button onClick={sidebarCloseHandler}>Close</button>
-            <NavLinks />
-          </>
-        ) : null}
-      </SidebarContainer>
-    </div>
+    <SidebarContainer>
+      <CloseButton onClick={props.handleClick}>×</CloseButton>
+      <NavLinks />
+    </SidebarContainer>
   );
 };
 

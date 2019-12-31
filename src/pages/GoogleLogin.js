@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 import { useSelector } from "react-redux";
 import { useFirebase, isLoaded, isEmpty } from "react-redux-firebase";
+import GoogleButton from "react-google-button"; // optional
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-// import { useHistory } from 'react-router-dom'; // if you use react-router
-// import GoogleButton from 'react-google-button' // optional
+import "firebase/auth";
 
-function LoginPage() {
+const LogIn = () => {
   const firebase = useFirebase();
   const auth = useSelector(state => state.firebase.auth);
 
+  function loginWithGoogle() {
+    return firebase.login({ provider: "google", type: "popup" });
+  }
+
   return (
-    <div className={classes.container}>
+    <Layout>
+      This is LogIn Page!{console.log(auth)} <GoogleButton />
+      <button onClick={loginWithGoogle}>Login With Google</button>) : (
+      <pre>{JSON.stringify(auth, null, 2)}</pre>
       <StyledFirebaseAuth
         uiConfig={{
           signInFlow: "popup",
@@ -27,18 +36,8 @@ function LoginPage() {
         }}
         firebaseAuth={firebase.auth()}
       />
-      <div>
-        <h2>Auth</h2>
-        {!isLoaded(auth) ? (
-          <span>Loading...</span>
-        ) : isEmpty(auth) ? (
-          <span>Not Authed</span>
-        ) : (
-          <pre>{JSON.stringify(auth, null, 2)}</pre>
-        )}
-      </div>
-    </div>
+    </Layout>
   );
-}
+};
 
-export default LoginPage;
+export default LogIn;

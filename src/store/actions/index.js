@@ -1,2 +1,2 @@
-export { selectBeer, addBeerSet, removeBeerSet } from "./beerSet";
-export {} from "./auth";
+export { selectBeer, addBeer, removeBeer } from "./beerSet";
+export { logIn, signUp, logOut } from "./auth";

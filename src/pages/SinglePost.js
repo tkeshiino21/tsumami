@@ -5,15 +5,13 @@ import Loading from "../components/Loading";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 const SinglePost = () => {
-  const [posts] = useState();
-  const [blog, setBlog] = useState();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     client.getEntries({ content_type: "post" }).then(entries => {
       console.log([...entries.items]);
       console.log([...entries.items].find(item => item.fields.slug));
       const blog = [...entries.items].find(
-        item => "/" + item.fields.slug === window.location.pathname
+        item => "/beer-blog/" + item.fields.slug === window.location.pathname
       );
       const renderedHTML = documentToHtmlString(blog.fields.content);
       document.getElementById("rich-text-body").innerHTML = renderedHTML;
@@ -30,7 +28,6 @@ const SinglePost = () => {
   }
   return (
     <Layout>
-      {console.log(posts)}
       <section className="single-post">
         <article className="beer-info">
           <div id="rich-text-body"></div>

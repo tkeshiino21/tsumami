@@ -23,7 +23,7 @@ const BEERS_VOLUME = {
   longCan: 500,
 };
 
-const reducer = (state = initState, action) => {
+const alcReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.CHECK_AGE:
       console.log(action);
@@ -68,4 +68,4 @@ const reducer = (state = initState, action) => {
   }
 };
 
-export default reducer;
+export default alcReducer;

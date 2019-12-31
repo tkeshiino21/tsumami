@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -41,25 +42,46 @@ const TextButton = styled.button`
   margin-left: 20px;
 `;
 
-const Header = () => {
+const Title = styled.h4`
+  margin-left: 20px;
+  margin-right: auto;
+  .link {
+    text-decoration: none;
+  }
+`;
+
+const Header = props => {
+  const auth = useSelector(state => state.firebase.auth);
   return (
     <HeaderContainer>
       <HeaderContents>
-        <OutlinedButton>
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            Login
+        <Title>
+          <Link className="link" to="/">
+            TSUMAMI
           </Link>
-        </OutlinedButton>
-        <TextButton>
-          <Link to="/signup" style={{ textDecoration: "none" }}>
-            SignUP
-          </Link>
-        </TextButton>
-        <TextButton>
-          <Link to="/logout" style={{ textDecoration: "none" }}>
-            LogOut
-          </Link>
-        </TextButton>
+        </Title>
+        <TextButton onClick={props.handleClick}>Menu</TextButton>
+        {!auth.uid ? (
+          <OutlinedButton>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              LogIn
+            </Link>
+          </OutlinedButton>
+        ) : null}
+        {!auth.uid ? (
+          <TextButton>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              SignUP
+            </Link>
+          </TextButton>
+        ) : null}
+        {auth.uid ? (
+          <TextButton>
+            <Link to="/logout" style={{ textDecoration: "none" }}>
+              LogOut
+            </Link>
+          </TextButton>
+        ) : null}
       </HeaderContents>
     </HeaderContainer>
   );

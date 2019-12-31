@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-import { RandomMessage } from "./RandomMessage";
 import Header from "./Header";
 
 const Backgroud = styled.div`
@@ -11,15 +10,9 @@ const Backgroud = styled.div`
   position: fixed;
 `;
 
-const Title = styled.h1`
-  margin-top: 10px;
-  font-weight: bold;
-  text-align: center;
-  color: #ffffff;
-`;
-
 const MainContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
 `;
 
@@ -31,27 +24,30 @@ const FlexColumnContainer = styled.div`
 
 const MainContents = styled.div`
   display: flex;
-  width: 100%;
   flex-direction: column;
-  padding: 20px 50px 0px 50px;
-`;
-
-const PageContainer = styled.div`
-  padding: 50px 0 0 0;
+  margin: 50px;
+  align-items: center;
 `;
 
 const Layout = props => {
+  const initialState = () => {
+    if (matchMedia("(max-width: 798px)").matches) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(initialState());
+  const SidebarTogglers = () => {
+    setSidebarIsOpen(!sidebarIsOpen);
+  };
   return (
     <Backgroud>
       <MainContainer>
-        <Sidebar />
+        {sidebarIsOpen ? <Sidebar handleClick={SidebarTogglers} /> : null}
         <FlexColumnContainer>
-          <Header />
-          <MainContents>
-            <Title>TSUMAMI</Title>
-            <RandomMessage />
-            <PageContainer>{props.children}</PageContainer>
-          </MainContents>
+          <Header handleClick={SidebarTogglers} />
+          <MainContents>{props.children}</MainContents>
         </FlexColumnContainer>
       </MainContainer>
     </Backgroud>

@@ -7,12 +7,12 @@ export const SidebarContainer = styled.div`
 `;
 
 export const CentralizeWrapper = styled.div`
+  display: flex;
   align-content: center;
   align-items: center;
-  background-color: inherit;
-  display: flex;
   flex-direction: column;
   justify-content: center;
+  align-self: center;
   width: 100%;
 `;
 

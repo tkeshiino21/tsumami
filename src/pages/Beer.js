@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import Layout from "../components/Layout";
 import { beerData } from "../data/beerData";
 import { useSelector, useDispatch } from "react-redux";
 import { selectBeer } from "../store/actions/index";
 
+const FixedBottom = styled.div`
+  position: absolute;
+  bottom: 50px;
+`;
+
 const Beer = () => {
   const [selectedMaker, setSelectedMaker] = useState();
-  const beer = useSelector(state => state.reducer.items);
-  const age = useSelector(state => state.reducer.age);
+  const beer = useSelector(state => state.alc.items);
+  const age = useSelector(state => state.alc.age);
   const dispatch = useDispatch();
   const options = [
     {
@@ -68,17 +74,14 @@ const Beer = () => {
             );
           })}
       </div>
-      <br />
-      <hr />
-      <br />
-      <div>
+      <FixedBottom>
         <p>yourchoise: </p>
         <br />
         {beer.map((item, index) => {
           return <li key={index}>{item}</li>;
         })}
         {console.log(beer)}
-      </div>
+      </FixedBottom>
     </Layout>
   );
 };
