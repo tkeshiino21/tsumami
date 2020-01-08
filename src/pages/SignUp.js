@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import "firebase/auth";
-import firebase from "firebase/app";
+import { authAction } from "../store/actions";
 
 const Form = styled.form`
   display: flex;
@@ -33,52 +33,61 @@ const Label = styled.label`
   margin-right: 10px;
 `;
 
-const SignUp = () => {
+const SignUpForm = props => {
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+  const [inputForm, setInputForm] = useState({
     email: "",
     password: "",
+    name: "",
   });
-
+  const handleChange = useCallback(
+    e => {
+      setInputForm({ ...inputForm, [e.target.id]: e.target.value });
+    },
+    console.log(inputForm),
+    [setInputForm]
+  );
   const handleSubmit = e => {
     e.preventDefault();
+    dispatch(
+      authAction({
+        payload: {
+          email: inputForm.email,
+          password: inputForm.password,
+          name: inputForm.name,
+          method: "signup",
+        },
+      })
+    );
   };
+  return (
+    <Form onSubmit={handleSubmit} className="white">
+      <InputField>
+        <Label htmlFor="name">Name</Label>
+        <input type="text" id="name" onChange={handleChange}></input>
+      </InputField>
+      <InputField>
+        <Label htmlFor="email">Email</Label>
+        <input type="email" id="email" onChange={handleChange}></input>
+      </InputField>
+      <InputField>
+        <Label htmlFor="password">password</Label>
+        <input type="text" id="password" onChange={handleChange}></input>
+      </InputField>
+      <button type="submit">SignUP</button>
+    </Form>
+  );
+};
 
-  const signup = () => {
-    const email = state.email;
-    const password = state.password;
-    firebase.auth().createUserWithEmailAndPassword(email, password);
-  };
-
+const SignUp = () => {
   const auth = useSelector(state => state.firebase.auth);
-
-  if (auth.uid) {
-    return <Redirect to="/" />;
-  }
+  // if (auth.uid) {
+  //   return <Redirect to="/" />;
+  // }
   return (
     <Layout>
-      <Form onSubmit={handleSubmit} className="white">
-        <InputField>
-          <Label htmlFor="email">Email</Label>
-          <input
-            id="email"
-            onChange={e =>
-              setState({ ...state, [e.target.id]: e.target.value })
-            }></input>
-        </InputField>
-        <InputField>
-          <Label htmlFor="email">password</Label>
-          <input
-            id="password"
-            onChange={e =>
-              setState({ ...state, [e.target.id]: e.target.value })
-            }></input>
-        </InputField>
-        {console.log(state)}
-        <button onClick={() => signup()}>SignUP</button>
-      </Form>
-      <button onClick={() => dispatch(SignUp(state))}>SignUP</button>
-      {console.log(firebase)}
+      <SignUpForm />
+
       {console.log("auth:", auth)}
     </Layout>
   );

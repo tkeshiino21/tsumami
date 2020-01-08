@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
+import { getFirestore, getFirebase, useFirestore } from "react-redux-firebase";
 import "firebase/auth";
 import firebase from "firebase/app";
+import { authAction, firestorePush } from "../store/actions";
 
 const Form = styled.form`
   display: flex;
@@ -33,7 +35,12 @@ const Label = styled.label`
   margin-right: 10px;
 `;
 
+const ErrorMessage = styled.h3`
+  color: red;
+`;
+
 const LogIn = () => {
+  const fire = useFirestore();
   const dispatch = useDispatch();
   const [state, setState] = useState({
     email: "",
@@ -50,7 +57,12 @@ const LogIn = () => {
     firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
+  const addPost = () => {
+    return fire.collection("todos").add({ name: "exampleTodo" });
+  };
+
   const auth = useSelector(state => state.firebase.auth);
+  const error = useSelector(state => state.auth.authError);
 
   if (auth.uid) {
     return <Redirect to="/" />;
@@ -75,10 +87,25 @@ const LogIn = () => {
             }></input>
         </InputField>
         <button onClick={() => sign()}>LogIn</button>
+        <button
+          onClick={() =>
+            dispatch(
+              authAction({
+                email: state.email,
+                password: state.password,
+                method: "login",
+              })
+            )
+          }>
+          LogIn
+        </button>
       </Form>
-      <button onClick={() => dispatch(LogIn(state))}>LogIn</button>
-      {console.log(firebase)}
+
+      {console.log("firebase:", getFirebase())}
       {console.log("auth:", auth)}
+      <ErrorMessage>{error}</ErrorMessage>
+      <button onClick={addPost}></button>
+      <button onClick={() => dispatch(firestorePush())}></button>
     </Layout>
   );
 };

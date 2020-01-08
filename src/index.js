@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { ReactReduxFirebaseProvider, isLoaded } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import configureStore from "./store/configureStore";
 
